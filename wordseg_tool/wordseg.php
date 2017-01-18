@@ -22,7 +22,7 @@ $show_tag = (isset($argv[1]) && $argv[1] == 'show_tag');
 while (($line = fgets(STDIN, 1024)) !== false) {
     $chars = array("\r", "\n");
     $encoded = rawurlencode(str_replace($chars, "", $line));
-    $url = "http://solr.dev.jumei.com/search/keyword_jumei_com/qa?q={$encoded}&wt=json";
+    $url = "http://localhost:8080/jms/keyword_jumei_com/qa?q={$encoded}&wt=json";
     $res = getCompressContent($url);
     if (isset($res['analysis'])) {
         $str = "";
