@@ -1,0 +1,22 @@
+{"name":"search_delta_import_data",
+    "type":"project",
+    "description":"jumei main serivce",
+    "config":{"vendor-dir": "Vendor"},
+    "repositories":[{"packagist":false},
+        {"type": "composer",
+            "url": "https://packagist.int.jumei.com/"
+        }
+    ],
+    "scripts":{
+        "post-update-cmd":"rm -rf Vendor/composer && rm -rf Vendor/autoload.php",
+        "post-install-cmd":"rm -rf Vendor/composer && rm -rf Vendor/autoload.php"
+    },
+    "require":{
+        "Db":"1.2.1",
+        "MNLogger":"0.4.0",
+        "Redis":"0.2.0",
+        "Bootstrap":"1.0.1",
+        "Thrift":"1.1.7",
+        "PHPClient":"1.2.6"
+    }
+}
