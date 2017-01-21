@@ -8,38 +8,34 @@
  */
 
 class EasyLexer {
-    static public function parse($str, $obj) {
+    static public function parse($str, $obj, $res_name) {
         // Replace dynamic pattern
-//        preg_match('/\$[a-zA-Z_]+/', $str, $matches);
         $count = preg_match_all('/\$([a-zA-Z_]+\.?)+/', $str, $matches);
         if ($count == False) {
             return $str;
         }
-        var_dump($matches);
         $matches = $matches[0];
-        for ($i = 1; $i < count($matches); ++$i) {
+        for ($i = 0; $i < count($matches); ++$i) {
             $arr = explode(".", $matches[$i]);
-            $str = "";
             foreach ($arr as $idx => $node) {
                 if (strpos($node, "$") === 0) {
                     $val = str_replace("$", "", $node);     
-                    
+                    if (isset($obj[$val])) {
+                        $arr[$idx] = $obj[$val];
+                    }
                 }
             }
+            $str = str_replace($matches[$i], self::genEvalStr($arr, $res_name), $str); 
         }
-//        $matches = $matches[1];
-//        for ($i = 1; $i < count($matches); ++$i) {
-//            $val = str_replace("$", "", $matches[$i]);
-//            echo $val."\n";
-//            $pattern = '/\$' . $val . '/';
-//            if (isset($obj[$val])) {
-//                $str = preg_replace($pattern, $obj[$val], $str);
-//            }
-//        }
         return $str;
-        // TODO
+    }
+    
+    static private function genEvalStr($arr, $res_name) {
+        $str = "$".$res_name;
+        foreach ($arr as $sub_node) {
+            $str .= "['".$sub_node."']";
+        }
+        return $str;
     }
 }
 
-$obj = array('search'=>'面膜');
-echo EasyLexer::parse('count($search.data.rows)>=0&&$search.data.pageNumber=1', $obj)."\n";

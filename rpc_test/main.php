@@ -23,29 +23,41 @@ global $CONFIG;
 \MNLogger\TraceLogger::instance('trace')->HTTP_SR();
 
 require_once (PROJECT_ROOT . '/util/JMutil.php');
-echo "Hello world\n";
+require_once (PROJECT_ROOT . '/util/EasyLexer.php');
+require_once (PROJECT_ROOT . '/PHPExcel/PHPExcel.php');
+require_once (PROJECT_ROOT . '/PHPExcel/PHPExcel/IOFactory.php');
 
-//$flag = 0;
-//$num = 10;
-//$ret = JMutil::retryClient('JumeiProduct_Search_Read_Deals', 'getJumeiDataWithMinDealIdAndLimit', array($flag, $num));
+function readCasesFromFile($filepath) {
+    static $column_conf = array('name' => 'A', 'param' => 'B', 'assert' => 'C');
+    
+    $obj_excel = PHPExcel_IOFactory::load($filepath);
+    $res = array();
+    $work_sheet = $obj_excel->getActiveSheet();
+    // The first row is head, ignore it
+    for ($row = 2; $row <= $work_sheet->getHighestRow(); $row++) {
+        $case = array();
+        foreach ($column_conf as $key => $value) {
+            $cell_val = $work_sheet->getCell($value.$row)->getValue();
+            $case[$key] = $cell_val;
+        }
+        $res[] = $case;
+    }
+    return $res;
+}
 
-/**
- * pseudocode
- * open test case files
- * for test_case in files
- *      extract search_params from test_case
- *      answer = send thrift request 
- *      for check_pattern in test_case
- *          if !match(check_pattern, answer)
- *              echo    test_case.name,failed
- *              break
- *      echo test_case.name,succeed
- */
+function doRPCRequest($provider, $method, $param_str) {
+    return json_decode(JMutil::retryClient($provider, $method, array($param_str)), true);
+}
 
-$test_cases = array();
-$case = array();
-$case['params'] = array('search' => '面膜','rows_per_page' => '1');
-$case['check_pattern'] = array("");
-$param = array(json_encode(array('search' => '面膜','rows_per_page' => '1')));
-$ret = \JMutil::retryClient('Search', 'getSearchData_v4', $param);
-echo $ret."\n";
+
+echo ".....................test started.................\n";
+$cases = readCasesFromFile("/home/greenday/Documents/test.csv");
+foreach ($cases as $case) {
+    $data = doRPCRequest('Search', 'getSearchData_v4', $case['param']);
+    $param = json_decode($case['param'], true);
+    $str = EasyLexer::parse($case['assert'], $param, 'data');
+    $ret = eval("return ".$str.";");
+    $ret = $ret?'Succeed':'Failed';
+    echo "{$case['name']}\t{$ret}\n";
+}
+echo ".....................test finished.......................\n";
