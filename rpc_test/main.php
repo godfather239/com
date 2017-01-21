@@ -61,4 +61,3 @@ foreach ($cases as $case) {
     echo "{$case['name']}\t{$ret}\n";
 }
 echo ".....................test finished.......................\n";
-echo ".....................test finished.......................\n";
