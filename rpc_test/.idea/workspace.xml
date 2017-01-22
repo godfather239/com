@@ -95,8 +95,8 @@
       <file leaf-file-name="EasyLexer.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/util/EasyLexer.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+            <state relative-caret-position="342">
+              <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
               <folding>
                 <element signature="e#6#152#0#PHP" expanded="true" />
               </folding>
@@ -318,7 +318,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../java/workspace/roundsman" />
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RunManager">
@@ -422,12 +422,12 @@
       <workItem from="1484900700368" duration="12295000" />
       <workItem from="1484982531291" duration="9623000" />
       <workItem from="1484993427988" duration="1022000" />
-      <workItem from="1485053226582" duration="5011000" />
+      <workItem from="1485053226582" duration="8242000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27951000" />
+    <option name="totallyTimeSpent" value="31182000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="18" width="1920" height="1043" extended-state="0" />
@@ -833,8 +833,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/util/EasyLexer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+        <state relative-caret-position="342">
+          <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
           <folding>
             <element signature="e#6#152#0#PHP" expanded="true" />
           </folding>

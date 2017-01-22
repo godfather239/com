@@ -17,7 +17,7 @@ class EasyLexer {
      */
     static public function parse($str, $obj, $res_name) {
         // Replace dynamic pattern
-        $count = preg_match_all('/\$+([a-zA-Z0-9_\[\]]+\.?)+/', $str, $matches);
+        $count = preg_match_all('/{\$?([a-zA-Z0-9_]+\.?)+}/', $str, $matches);
         if ($count == False) {
             return $str;
         }
