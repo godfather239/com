@@ -27,22 +27,38 @@ require_once (PROJECT_ROOT . '/util/EasyLexer.php');
 require_once (PROJECT_ROOT . '/PHPExcel/PHPExcel.php');
 require_once (PROJECT_ROOT . '/PHPExcel/PHPExcel/IOFactory.php');
 
-function readCasesFromFile($filepath) {
+function process($filepath) {
     static $column_conf = array('name' => 'A', 'param' => 'B', 'assert' => 'C');
     
     $obj_excel = PHPExcel_IOFactory::load($filepath);
-    $res = array();
-    $work_sheet = $obj_excel->getActiveSheet();
-    // The first row is head, ignore it
-    for ($row = 2; $row <= $work_sheet->getHighestRow(); $row++) {
-        $case = array();
-        foreach ($column_conf as $key => $value) {
-            $cell_val = $work_sheet->getCell($value.$row)->getValue();
-            $case[$key] = $cell_val;
+    $sheet_names = $obj_excel->getSheetNames();
+    foreach ($sheet_names as $sheet_name) {
+        echo ".....................Start testing {$sheet_name}.................\n";
+        $work_sheet = $obj_excel->getSheetByName($sheet_name);
+        // The first row is head, ignore it
+        $res = array();
+        for ($row = 2; $row <= $work_sheet->getHighestRow(); $row++) {
+            $case = array();
+            foreach ($column_conf as $key => $value) {
+                $cell_val = $work_sheet->getCell($value.$row)->getValue();
+                $case[$key] = $cell_val;
+            }
+            $res[] = $case;
         }
-        $res[] = $case;
+        testCases($res);
+        echo ".....................Testing {$sheet_name} finished!.................\n";
     }
-    return $res;
+}
+
+function testCases($cases) {
+    foreach ($cases as $case) {
+        $data = doRPCRequest('Search', 'getSearchData_v4', $case['param']);
+        $param = json_decode($case['param'], true);
+        $str = EasyLexer::parse($case['assert'], $param, 'data');
+        $ret = eval("return ".$str.";");
+        $ret = $ret?'Succeed':'Failed';
+        echo "{$case['name']}\t{$ret}\n";
+    }
 }
 
 function doRPCRequest($provider, $method, $param_str) {
@@ -51,13 +67,5 @@ function doRPCRequest($provider, $method, $param_str) {
 
 
 echo ".....................test started.................\n";
-$cases = readCasesFromFile("/home/greenday/Documents/test.csv");
-foreach ($cases as $case) {
-    $data = doRPCRequest('Search', 'getSearchData_v4', $case['param']);
-    $param = json_decode($case['param'], true);
-    $str = EasyLexer::parse($case['assert'], $param, 'data');
-    $ret = eval("return ".$str.";");
-    $ret = $ret?'Succeed':'Failed';
-    echo "{$case['name']}\t{$ret}\n";
-}
+process("/home/greenday/Documents/test2.xlsx");
 echo ".....................test finished.......................\n";
