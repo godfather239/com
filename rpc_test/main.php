@@ -45,16 +45,17 @@ function process($filepath) {
             }
             $res[] = $case;
         }
-        testCases($res);
+        testCases($res, $sheet_name);
         echo ".....................Testing {$sheet_name} finished!.................\n";
     }
 }
 
-function testCases($cases) {
+function testCases($cases, $method) {
     foreach ($cases as $case) {
-        $data = doRPCRequest('Search', 'getSearchData_v4', $case['param']);
+        $data = doRPCRequest('Search', $method, $case['param']);
         $param = json_decode($case['param'], true);
         $str = EasyLexer::parse($case['assert'], $param, 'data');
+        echo $str."\n";
         $ret = eval("return ".$str.";");
         $ret = $ret?'Succeed':'Failed';
         echo "{$case['name']}\t{$ret}\n";
@@ -67,5 +68,5 @@ function doRPCRequest($provider, $method, $param_str) {
 
 
 echo ".....................test started.................\n";
-process("/home/greenday/Documents/test2.xlsx");
+process("/home/greenday/Documents/test.xlsx");
 echo ".....................test finished.......................\n";

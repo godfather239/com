@@ -8,9 +8,16 @@
  */
 
 class EasyLexer {
+    /**
+     * @brief expression format: $search.data.rows.0.doc_type=='global_mall'&&$search.data.pageNumber>=1
+     * @param $str
+     * @param $obj
+     * @param $res_name
+     * @return mixed
+     */
     static public function parse($str, $obj, $res_name) {
         // Replace dynamic pattern
-        $count = preg_match_all('/\$([a-zA-Z_]+\.?)+/', $str, $matches);
+        $count = preg_match_all('/\$+([a-zA-Z0-9_\[\]]+\.?)+/', $str, $matches);
         if ($count == False) {
             return $str;
         }
