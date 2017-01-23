@@ -24,6 +24,7 @@ global $CONFIG;
 
 require_once (PROJECT_ROOT . '/util/JMutil.php');
 require_once (PROJECT_ROOT . '/util/EasyLexer.php');
+require_once (PROJECT_ROOT . '/util/common.php');
 require_once (PROJECT_ROOT . '/PHPExcel/PHPExcel.php');
 require_once (PROJECT_ROOT . '/PHPExcel/PHPExcel/IOFactory.php');
 

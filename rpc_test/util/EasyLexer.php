@@ -23,7 +23,7 @@ class EasyLexer {
         }
         $matches = $matches[0];
         for ($i = 0; $i < count($matches); ++$i) {
-            $arr = explode(".", $matches[$i]);
+            $arr = explode(".", trim($matches[$i], "{}"));
             foreach ($arr as $idx => $node) {
                 if (strpos($node, "$") === 0) {
                     $val = str_replace("$", "", $node);     
