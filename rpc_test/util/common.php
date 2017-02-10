@@ -19,6 +19,9 @@ function mycomp($lhs, $rhs, $type) {
 }
 
 function greater($arr, $key, $value) {
+    if (!isset($arr) || !is_array($arr) || empty($arr)) {
+        return false;
+    }
     foreach ($arr as $item) {
         if (!isset($item[$key])) {
             return False;
@@ -32,6 +35,9 @@ function greater($arr, $key, $value) {
 }
 
 function equal($arr, $key, $value) {
+    if (!isset($arr) || !is_array($arr) || empty($arr)) {
+        return false;
+    }
     foreach ($arr as $item) {
         if (!isset($item[$key])) {
             return False;
@@ -45,6 +51,9 @@ function equal($arr, $key, $value) {
 }
 
 function lesser($arr, $key, $value) {
+    if (!isset($arr) || !is_array($arr) || empty($arr)) {
+        return false;
+    }
     foreach ($arr as $item) {
         if (!isset($item[$key])) {
             return False;

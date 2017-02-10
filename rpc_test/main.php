@@ -52,14 +52,28 @@ function process($filepath) {
 }
 
 function testCases($cases, $method) {
+    global $CONFIG;
     foreach ($cases as $case) {
         $data = doRPCRequest('Search', $method, $case['param']);
+//        echo json_encode($data)."\n";
         $param = json_decode($case['param'], true);
+        if (isset($data['correct_keyword'])) {
+            $param['search'] = $data['correct_keyword'];
+        }
+//        var_dump($param);
         $str = EasyLexer::parse($case['assert'], $param, 'data');
-        echo $str."\n";
-        $ret = eval("return ".$str.";");
+        if (isset($CONFIG['debug']) && $CONFIG['debug']) {
+            echo $str."\n";
+        }
+        try {
+            $ret = eval("return ".$str.";");
+        } catch (Exception $e) {
+            echo $e."\n";
+            $ret = false;
+        }
         $ret = $ret?'Succeed':'Failed';
-        echo "{$case['name']}\t{$ret}\n";
+        printf("%'.-60s%20s\n", $case['name'], $ret);
+//        echo "{$case['name']}\t{$ret}\n";
     }
 }
 

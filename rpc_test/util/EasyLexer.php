@@ -29,6 +29,8 @@ class EasyLexer {
                     $val = str_replace("$", "", $node);     
                     if (isset($obj[$val])) {
                         $arr[$idx] = $obj[$val];
+                    } else {
+                        $arr[$idx] = "";
                     }
                 }
             }

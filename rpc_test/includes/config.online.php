@@ -319,3 +319,5 @@ $CONFIG['activity_attr'] = array (
     'weight' => 1,
   ),
 );
+
+$CONFIG['debug'] = 0;
