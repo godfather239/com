@@ -306,7 +306,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../java/workspace/roundsman" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -903,12 +903,12 @@
       <workItem from="1484993427988" duration="1022000" />
       <workItem from="1485053226582" duration="17149000" />
       <workItem from="1486352138013" duration="5506000" />
-      <workItem from="1486624750472" duration="4804000" />
+      <workItem from="1486624750472" duration="6347000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50399000" />
+    <option name="totallyTimeSpent" value="51942000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="18" width="1920" height="1043" extended-state="0" />
