@@ -11,6 +11,7 @@
   - 目前支持的函数:
     - php原生函数均支持:count,empty,preg_match等
     - 自定义函数(用于数组所有内容判断):equal($arr, $key, $value),greater($arr, $key, $value),lesser($arr, $key, $value)
+
 ##自定义函数说明
 ```php
 /**
