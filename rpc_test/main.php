@@ -83,5 +83,5 @@ function doRPCRequest($provider, $method, $param_str) {
 
 
 echo ".....................test started.................\n";
-process("/home/greenday/Documents/test.xlsx");
+process("/home/greenday/Documents/test2.xlsx");
 echo ".....................test finished.......................\n";
