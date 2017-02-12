@@ -11,3 +11,15 @@
   - 目前支持的函数:
     - php原生函数均支持:count,empty,preg_match等
     - 自定义函数(用于数组所有内容判断):equal($arr, $key, $value),greater($arr, $key, $value),lesser($arr, $key, $value)
+##自定义函数说明
+```php
+/**
+ * @param $arr
+ * @param $key
+ * @param $value 支持或关系表达,比如"a|b|c",表示数组元素匹配其中任何一个值,即为true
+ * @param bool $skip_null
+ * @return bool
+ */
+function equal($arr, $key, $value, $skip_null = true)
+```
+
