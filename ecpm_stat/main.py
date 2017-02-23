@@ -17,7 +17,7 @@ def get_order_table(sparkContext, sqlContext):
     start = CONFIG['stat_from'].strftime('%Y-%m-%d')
     end = CONFIG['stat_to'].strftime('%Y-%m-%d')
     table = sqlContext.sql('''
-          select sell_label,product_id as productId,sum(quantity*settlement_price) as sales_amount from
+          select sell_label,product_id as productId,sum(quantity*deal_price) as sales_amount from
           bi_datawarehouse.int_paid_orders where data_date >= '%s' AND data_date <= '%s'
                                 and sell_label is not null and sell_label != ""
                                 and sell_type = 'mSearch'
