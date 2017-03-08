@@ -23,11 +23,17 @@ $CONFIG['class_map'] = array(
 );
 
 $CONFIG['thrift'] = array(
-    // jumei_search_webservice address
     'Search' => array(
-        'nodes' => array(
-            0 => '172.20.5.65:9090',
-        ),
+        'nodes' => array (
+  0 => '172.20.5.65:9090',
+),
+        'provider' => PROJECT_ROOT . '/Provider',
+        'timeout' => 30,
+    ),
+    'Search_Store' => array(
+        'nodes' => array (
+  0 => '172.20.5.65:9090',
+),
         'provider' => PROJECT_ROOT . '/Provider',
         'timeout' => 30,
     ),
@@ -51,7 +57,7 @@ $CONFIG['thrift'] = array(
     ) ,
     'PromotionFaceService' => array(
         'nodes' => array (
-  0 => '172.20.5.77:9000',
+  0 => '192.168.69.147:9000',
 ),
         'provider' => PROJECT_ROOT . '/Provider',
         'timeout' => 30,
@@ -59,9 +65,7 @@ $CONFIG['thrift'] = array(
         // 单位秒,（不设置默认30秒）
     ) ,
     'SaleService' => array(
-        'nodes' => array (
-  0 => '172.20.16.22:9993:10',
-),
+        'nodes' => "#{cube.service.search.product_sales}",
         'provider' => PROJECT_ROOT . '/Provider',
         'timeout' => 30,
         // 单位秒,（不设置默认30秒）
@@ -112,7 +116,7 @@ $CONFIG['RedisCache'] = array(
         'db' => 3
     ) ,
     'promocard' => array(
-        'db' => 9,
+        'db' => "#{PromoCard.Redis.promoCard.db}",
         'nodes' => array (
   0 => 
   array (
@@ -131,7 +135,7 @@ $CONFIG['RedisStorge'] = array(
         'db' => 3
     ) ,
     'promocard' => array(
-        'db' => 9,
+        'db' => "#{PromoCard.Redis.promoCard.db}",
         'nodes' => array (
   0 => 
   array (
@@ -271,6 +275,81 @@ $CONFIG['shell_conf'] = array (
 $CONFIG['source_valid_check'] = array (
   'check' => true,
   'use_default' => true,
+  'prod_numeric_fields' => 
+  array (
+    0 => 'discount',
+    1 => 'market_price',
+    2 => 'jumei_price',
+    3 => 'status',
+    4 => 'area_code',
+    5 => 'area_exchange_rate',
+    6 => 'area_currency_symbol_location',
+    7 => 'abroad_price',
+    8 => 'is_sellable',
+    9 => 'shipping_system_id',
+    10 => 'package_price',
+    11 => 'package_id',
+    12 => 'deal_real_buyer_number',
+    13 => 'deal_id',
+    14 => 'countries',
+    15 => 'start_time',
+    16 => 'end_time',
+    17 => 'buyer_number',
+    18 => 'fake_30day_buyer_number',
+    19 => 'mall_real_buyer_number',
+    20 => 'real_30day_mall_sale_volume',
+    21 => 'real_30day_deal_sale_volume',
+    22 => 'real_30day_buyer_number',
+    23 => 'fake_30day_buyer_number',
+    24 => 'real_30day_sales_amount',
+    25 => 'sort_sales_volume',
+    26 => 'sort_sales_amount',
+    27 => 'sort_price',
+    28 => 'sort_start_date',
+    29 => 'sort_popularity',
+    30 => 'sale_price',
+    31 => 'sale_start_time',
+    32 => 'sale_end_time',
+    33 => 'show_status',
+    34 => 'mall_id',
+    35 => 'is_authorization',
+    36 => 'product_reports_number',
+    37 => 'product_report_rating',
+    38 => 'deal_comments_number',
+    39 => 'is_available_bj',
+    40 => 'is_available_cd',
+    41 => 'is_available_gz',
+    42 => 'is_available_sh',
+    43 => 'merchant_id',
+    44 => 'wish_number',
+    45 => 'is_published_price',
+    46 => 'high_priority_sort',
+    47 => 'deal_sort',
+    48 => 'sale_amount',
+    49 => 'saved_amount',
+    50 => 'payment_start_time',
+    51 => 'payment_end_time',
+    52 => 'is_new_tag_time',
+  ),
+  'store_numeric_fields' => 
+  array (
+    0 => 'fav_count',
+    1 => 'product_count',
+    2 => 'is_authorization',
+    3 => 'is_proprietary',
+    4 => 'is_pc_store',
+    5 => 'is_mobile_store',
+    6 => 'sales_volume_30',
+    7 => 'sales_num_30',
+  ),
+  'activity_numeric_fields' => 
+  array (
+    0 => 'brand_id',
+    1 => 'end_time',
+    2 => 'preheatting_time',
+    3 => 'sales_volume_mobile_pay',
+    4 => 'start_time',
+  ),
 );
 $CONFIG['log']['common'] = "/home/logs/data_import/index_common.log";
 $CONFIG['log']['src_ids'] = "/home/logs/data_import/src.ids.log";
@@ -319,5 +398,3 @@ $CONFIG['activity_attr'] = array (
     'weight' => 1,
   ),
 );
-
-$CONFIG['debug'] = 0;

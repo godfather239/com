@@ -18,6 +18,16 @@ $CONFIG['class_map'] = array(
 );
 
 $CONFIG['thrift'] = array(
+    'Search' => array(
+        'nodes' => "#{Search-WEB.Thrift.Search.Nodes}",
+        'provider' => PROJECT_ROOT . '/Provider',
+        'timeout' => 30,
+    ),
+    'Search_Store' => array(
+        'nodes' => "#{Search-WEB.Thrift.Search.Nodes}",
+        'provider' => PROJECT_ROOT . '/Provider',
+        'timeout' => 30,
+    ),
     'JumeiProduct_Read_Thrift_Product' => array(
         'nodes' => "#{product-service.backend.thrift.iplist}",
         'provider' => PROJECT_ROOT . '/Provider',

@@ -38,7 +38,7 @@ function process($filepath) {
         $work_sheet = $obj_excel->getSheetByName($sheet_name);
         // The first row is head, ignore it
         $res = array();
-        for ($row = 2; $row <= $work_sheet->getHighestRow(); $row++) {
+        for ($row = 2; $row <= $work_sheet->getHighestDataRow(); $row++) {
             $case = array();
             foreach ($column_conf as $key => $value) {
                 $cell_val = $work_sheet->getCell($value.$row)->getValue();
@@ -52,16 +52,19 @@ function process($filepath) {
 }
 
 function testCases($cases, $method) {
+    static $providers = array('getSearchData_v4' => 'Search', 'getSearchStore_v3' => 'Search_Store');
+    
     global $CONFIG;
     foreach ($cases as $case) {
-        $data = doRPCRequest('Search', $method, $case['param']);
-//        echo json_encode($data)."\n";
+        $data = doRPCRequest($providers[$method], $method, $case['param']);
         $param = json_decode($case['param'], true);
         if (isset($data['correct_keyword'])) {
             $param['search'] = $data['correct_keyword'];
+        } else if (isset($data['corrected_keyword'])) {
+            $param['search'] = $data['corrected_keyword'];
         }
-//        var_dump($param);
         $str = EasyLexer::parse($case['assert'], $param, 'data');
+//        echo $str."\n";
         if (isset($CONFIG['debug']) && $CONFIG['debug']) {
             echo $str."\n";
         }
@@ -83,5 +86,5 @@ function doRPCRequest($provider, $method, $param_str) {
 
 
 echo ".....................test started.................\n";
-process("/home/greenday/Documents/test2.xlsx");
+process("/home/greenday/dev/bitbucket/maoyan_test.xlsx");
 echo ".....................test finished.......................\n";

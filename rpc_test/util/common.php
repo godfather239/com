@@ -49,6 +49,9 @@ function equal($arr, $key, $value, $skip_null = true) {
         if (!isset($item[$key]) && !$skip_null) {
             return False;
         }
+        if (!isset($item[$key]) && $skip_null) {
+            continue;
+        }
         $sub_vals = explode("|", $value);
         $matched = false;
         foreach ($sub_vals as $val) {
