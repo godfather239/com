@@ -86,5 +86,5 @@ function doRPCRequest($provider, $method, $param_str) {
 
 
 echo ".....................test started.................\n";
-process("/home/greenday/dev/bitbucket/maoyan_test.xlsx");
+process(PROJECT_ROOT."data/maoyan_test.xlsx");
 echo ".....................test finished.......................\n";
