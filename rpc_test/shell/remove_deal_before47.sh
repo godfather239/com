@@ -1,1 +1,0 @@
-curl "http://localhost:8080//search/search_jumei_com/update?commit=true&stream.body=%3Cdelete%3E%3Cquery%3Edoc_type:global_deal%20AND%20end_time:[*%20TO%201460044800]%3C/query%3E%3C/delete%3E&wt=json" -g
