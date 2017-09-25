@@ -13,9 +13,9 @@
 function rand() {
     size=$1
     filepath=$2
-    awk 'BEGIN{
+    awk -v size="${size}" 'BEGIN{
         srand();
-        size = "'${size}'";
+        #size = "'${size}'";
     }
     {
         if (NR-0 <= size-0) {
@@ -33,4 +33,17 @@ function rand() {
     }' $filepath
 }
 
-rand $@
+while getopts "f:n:d" opt
+do
+    case $opt in
+        f)
+            filepath="$OPTARG";;
+        n)
+            size="$OPTARG";;
+        d)
+            set -x;;
+        ?)
+            echo "USAGE: sample -f <filepath> -n size"
+    esac
+done
+rand $size $filepath
