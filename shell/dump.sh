@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 while [ 1 ]
 do
     echo "Hello world!"
