@@ -1,0 +1,44 @@
+#!/usr/bin/env php
+<?php
+function rand_sample($filepath, $size) {
+    $fp = fopen($filepath, 'r');
+    if (!$fp) {
+        return -1;
+    }
+    $res = array();
+    $count = 0;
+    while (($line = fgets($fp, 10240)) != FALSE) {
+        ++$count;
+        if (count($res) < $size) {
+            $res[] = $line;
+        } else {
+            $num = rand(0, $count);
+            if ($num < $size) $res[$num] = $line;
+        }
+    }
+    foreach ($res as $key => $val) {
+        print $val;
+    }
+    fclose($fp);
+}
+
+
+$opts = getopt("f:n:d");
+$filepath = '';
+$size = 10;
+foreach ($opts as $key => $val) {
+    switch ($key) {
+        case 'f':
+            $filepath = $val;
+            break;
+        case 'n':
+            $size = $val;
+        case 'd':
+            $debug = true;
+        default:
+            break;
+    }
+}
+srand();
+rand_sample($filepath, $size);
+?>
